@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Fieedw/gulu-demo-1/issues"
   },
-  "homepage": "https://github.com/Fieedw/gulu-demo-1#readme"
+  "homepage": "https://github.com/Fieedw/gulu-demo-1#readme",
+  "dependencies": {
+    "vue": "^2.6.11"
+  }
 }
