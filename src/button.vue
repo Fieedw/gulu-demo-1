@@ -1,20 +1,27 @@
 <template>
     <!--    {[iconPosition]:true}-->
-    <button :class="{[`icon-${iconPosition}`]:true}" class="g-button">
-        <g-icon :name="icon" v-if="icon"></g-icon>
+</template>
+<template>
+    <button :class="{[`icon-${iconPosition}`]:true}" @click="$emit('click')" class="g-button">
+        <g-icon :name="icon" class="icon" v-if="icon && !loading"></g-icon>
+        <g-icon class="loading icon" name="loading" v-if="loading"></g-icon>
         <div class="content">
-        <slot></slot>
+            <slot></slot>
         </div>
     </button>
 </template>
 <script>
     export default {
         // props: ['icon', 'iconPosition']
-        props:{
-            icon:{},
-            iconPosition:{
-                type:String,
-                default:'left',
+        props: {
+            icon: {},
+            loading: {
+                "type": Boolean,
+                "default": false,
+            },
+            iconPosition: {
+                type: String,
+                default: 'left',
                 validator: function (value) {
                     if (value !== 'left' && value !== 'right') {
                         return false
@@ -51,7 +58,8 @@
         }
 
         > .icon {
-            order: 1;margin-right: .1em;
+            order: 1;
+            margin-right: .1em;
 
         }
 
@@ -61,12 +69,27 @@
 
         &.icon-right {
             > .icon {
-                order: 2; margin-right:0; margin-left: .1em;
+                order: 2;
+                margin-right: 0;
+                margin-left: .1em;
             }
 
             > .content {
                 order: 1;
             }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg)
+            }
+            100% {
+                transform: rotate(85deg)
+            }
+        }
+
+        .loading {
+            animation: spin 1ms linear infinite;
         }
     }
 </style>
