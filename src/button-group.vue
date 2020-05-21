@@ -5,6 +5,7 @@
 </template>
 <script>
     export default {
+        //检测button-group子元素是不是button标签
         mounted() {
             for(let node of this.$el.children){
                 let name =node.nodeName.toLowerCase()
@@ -22,7 +23,9 @@
 
         > .g-button {
             border-radius: 0;
-            margin-left: -1px;
+            &:not(:first-child){
+                margin-left: -1px;
+            }
             &:first-child {
                 border-top-left-radius: var(--border-radius);
                 border-bottom-left-radius: var(--border-radius);
