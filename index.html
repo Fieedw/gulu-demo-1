@@ -37,6 +37,11 @@
 </head>
 <body>
 <div id="app">
+    <g-input :disable="true" value="张三"></g-input>
+    <g-input :read-only="true" value="李四"></g-input>
+    <g-input value="王五"></g-input>
+    <g-input error="姓名不能少于3个字符" value="王"></g-input>
+    <div style="margin-top: 20px">
     <g-button :loading="loading1" @click="loading1=!loading1" icon="setting">
         按钮
     </g-button>
@@ -51,8 +56,9 @@
         <g-button icon="right" icon-position="right">下一页</g-button>
         <g-button icon="down" icon-position="right">更多</g-button>
     </g-button-group>
+    </div>
 </div>
 <script src="./src/app.js"></script>
-<script src="//at.alicdn.com/t/font_1831853_7jkwxjv0b7a.js"></script>
+<script src="//at.alicdn.com/t/font_1831853_gtlaqtycj8.js"></script>
 </body>
 </html>

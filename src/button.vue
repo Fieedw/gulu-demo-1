@@ -15,6 +15,7 @@
     import Icon from './icon'
     // Vue.component('g-icon',Icon)
     export default {
+        name:'glButton',
         components: {
             'g-icon':Icon
         },
