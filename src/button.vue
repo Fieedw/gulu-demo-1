@@ -11,7 +11,13 @@
     </button>
 </template>
 <script>
+    // import Vue from 'vue'
+    import Icon from './icon'
+    // Vue.component('g-icon',Icon)
     export default {
+        components: {
+            'g-icon':Icon
+        },
         // props: ['icon', 'iconPosition']
         props: {
             icon: {},
