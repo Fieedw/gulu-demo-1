@@ -1,5 +1,5 @@
 <template>
-    <div :style="{marginLeft:-gutter/2+'px',marginRight:-gutter/2+'px'}" class="row">
+    <div :style="rowStyle" class="row">
         <slot></slot>
     </div>
 </template>
@@ -21,12 +21,19 @@
             this.$children.forEach((vm)=>{
                 vm.gutter =this.gutter
             })
+        },
+        computed:{
+            rowStyle(){
+                let {gutter} =this
+                return {marginLeft:-gutter/2+'px',marginRight:-gutter/2+'px'}
+             // return   {marginLeft:-(this.gutter/2+'px'),marginRight:-(this.gutter/2+'px')}
+            }
         }
     }
-    var div = document.createElement('div')
-    var childDiv = document.createElement('div')
-    div.appendChild(childDiv)
-    document.body.appendChild(div)
+    // var div = document.createElement('div')
+    // var childDiv = document.createElement('div')
+    // div.appendChild(childDiv)
+    // document.body.appendChild(div)
 </script>
 <style lang="scss" scoped>
     .row{
