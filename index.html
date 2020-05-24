@@ -37,30 +37,30 @@
 </head>
 <body>
 <div id="app">
-    <g-row>
+    <g-row gutter="20">
         <g-col>1</g-col>
         <g-col>2</g-col>
     </g-row>
-    <g-row>
+    <g-row gutter="20">
         <g-col>1</g-col>
         <g-col>2</g-col>
         <g-col>3</g-col>
     </g-row>
-    <g-row>
+    <g-row gutter="20">
         <g-col>1</g-col>
         <g-col>2</g-col>
         <g-col>3</g-col>
         <g-col>4</g-col>
     </g-row>
-    <g-row>
+    <g-row gutter="20">
         <g-col span="2">1</g-col>
         <g-col span="22">2</g-col>
     </g-row>
-    <g-row>
+    <g-row gutter="20">
         <g-col span="4">1</g-col>
         <g-col span="20">2</g-col>
     </g-row>
-    <hr/>
+    <div style="margin-top: 40px">
     <g-input :disable="true" value="张三"></g-input>
     <g-input :read-only="true" value="李四"></g-input>
     <g-input value="王五"></g-input>
@@ -68,6 +68,7 @@
     <div style="margin-top: 20px">
     <g-input @change="inputChange" v-model="message" value="王"></g-input>
     <p>{{message}}</p>
+    </div>
     <button @click="message+=1">+1</button>
     </div>
     <div style="margin-top: 20px">

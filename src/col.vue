@@ -1,6 +1,8 @@
 <template>
-    <div :class="[`col-${span}`]" class="col">
+    <div :class="[span&&`col-${span}`,offset &&`offset-${offset}`]" :style="{paddingRight:gutter/2+'px',paddingLeft:gutter/2+'px'}" class="col">
+        <div style="border:1px solid palevioletred; height:32px;">
         <slot></slot>
+        </div>
     </div>
 </template>
 <script>
@@ -9,16 +11,30 @@
         props: {
             span: {
             type:[Number,String]
+            },
+            offset:{
+                type:[Number,String]
             }
+        },
+        data(){
+            return{
+                gutter:0
+            }
+        },
+        created() {
+            console.log('col created')
+        },
+        mounted() {
+            console.log('col mounted')
         }
     }
 </script>
 <style lang="scss" scoped>
     .col{
-        background-color: grey;
-        height: 56px;
+        /*background-color: grey;*/
+        /*height: 56px;*/
         width: 50%;
-        border: 1px solid red;
+        /*border: 1px solid red;*/
 
         $class: col-;
 
