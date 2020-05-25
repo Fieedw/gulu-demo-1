@@ -32,6 +32,10 @@
             font-size: var(--font-size)
         }
 
+        .demo {
+            border: 1px solid red;
+            min-height: 100px;
+        }
 
     </style>
 </head>
@@ -65,16 +69,24 @@
     <!--        <g-col span="14">2</g-col>-->
     <!--        <g-col span="6">2</g-col>-->
     <!--    </g-row>-->
+<!--    <g-layout style="height:100vh;">-->
+<!--        <g-sider class="demo">sider</g-sider>-->
+        <g-layout style="height: 100vh">
+            <g-header class="demo">header</g-header>
+            <g-content class="demo">content</g-content>
+            <g-footer class="demo">footer</g-footer>
+        </g-layout>
+<!--    </g-layout>-->
     <g-row>
         <g-col span="24">100%</g-col>
     </g-row>
-<!--    <g-row>-->
-<!--        <g-col :i-pad="{span:8}"  :narrow-pc="{span:4}" :pc="{span:2}" :wide-pc="{span:1}" span="24" style="border:1px solid #333333">1-->
-<!--        </g-col>-->
-<!--        <g-col :i-pad="{span:16}"  :narrow-pc="{span:20}" :pc="{span:22}" :wide-pc="{span:23}" span="24" style="border: 1px solid #333333">-->
-<!--            11-->
-<!--        </g-col>-->
-<!--    </g-row>-->
+    <!--    <g-row>-->
+    <!--        <g-col :i-pad="{span:8}"  :narrow-pc="{span:4}" :pc="{span:2}" :wide-pc="{span:1}" span="24" style="border:1px solid #333333">1-->
+    <!--        </g-col>-->
+    <!--        <g-col :i-pad="{span:16}"  :narrow-pc="{span:20}" :pc="{span:22}" :wide-pc="{span:23}" span="24" style="border: 1px solid #333333">-->
+    <!--            11-->
+    <!--        </g-col>-->
+    <!--    </g-row>-->
 
     <g-row gutter="20">
         <g-col span="12">50%</g-col>
