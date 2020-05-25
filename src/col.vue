@@ -1,35 +1,54 @@
 <template>
     <div :class="colClass" :style="colStyle" class="col">
         <div style="border:1px solid palevioletred; height:32px;">
-        <slot></slot>
+            <slot></slot>
         </div>
     </div>
 </template>
 <script>
+    let validator = (value) => {
+        let keys = Object.keys(value)
+        let valid = true
+        keys.forEach((key) => {
+            if (['span', 'offset'].includes(key)) {
+                return valid
+            }
+            return false
+        })
+    }
     export default {
-        name:'GuLu-col',
+        name: 'GuLu-col',
         props: {
-            span: {
-            type:[Number,String]
-            },
-            offset:{
-                type:[Number,String]
+            span: {type: [Number, String]},
+            offset: {type: [Number, String]},
+            phone: {type: Object, validator,},
+            iPad:{type: Object, validator,},
+            narrowPc:{type: Object, validator,},
+            pc:{type: Object, validator,},
+            widePc:{type: Object, validator,}
+        },
+        data() {
+            return {
+                gutter: 0
             }
         },
-        data(){
-            return{
-                gutter:0
-            }
-        },
-        computed:{
-            colClass(){
-                let {span,offset} =this
-                return [span&&`col-${span}`,offset &&`offset-${offset}`]
+        computed: {
+            colClass() {
+                let {span, offset,phone, iPad, narrowPc, pc, widePc,} = this
+                return [span && `col-${span}`,
+                    offset && `offset-${offset}`,
+                    ...(phone?`col-phone-${phone.span}`:[]),
+                    ...(iPad ? `col-iPad-${ipad.span}` : []),
+                    ...(narrowPc ? `col-narrow-pc-${narrowPc.span}` : []),
+                    ...(pc ? `col-pc-${pc.span}` : []),
+                    ...(widePc ? `col-wide-pc-${widePc.span}` : [])
+                ]
             },
-            colStyle(){
-              return   {
-                  paddingRight:this.gutter/2+'px',
-                  paddingLeft:this.gutter/2+'px'}
+            colStyle() {
+                return {
+                    paddingRight: this.gutter / 2 + 'px',
+                    paddingLeft: this.gutter / 2 + 'px'
+                }
             }
 
         },
@@ -42,16 +61,16 @@
     }
 </script>
 <style lang="scss" scoped>
-    .col{
+    .col {
         /*background-color: grey;*/
         /*height: 56px;*/
-        width: 50%;
+        /*width: 50%;*/
         /*border: 1px solid red;*/
 
         $class: col-;
 
         // loops through 100 times
-        @for $n from 1 through 24{
+        @for $n from 1 through 24 {
 
             // for each $col_#{i}
             &.#{$class}#{$n} {
@@ -61,11 +80,66 @@
         $class: offset-;
 
         // loops through 100 times
-        @for $n from 1 through 24{
-
+        @for $n from 1 through 24 {
             // for each $col_#{i}
             &.#{$class}#{$n} {
-                width: ($n / 24) * 100%
+                margin-left: ($n / 24) * 100%
+            }
+        }
+        @media (max-width: 576px) {
+            $class: col-phone-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    width: ($n / 24) * 100%
+                }
+            }
+            $class: offset-phone-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    margin-left: ($n / 24) * 100%
+                }
+            }
+        }
+        @media (max-width: 769px) {
+            $class: col-narrow-pc-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    width: ($n / 24) * 100%
+                }
+            }
+            $class: offset-narrow-pc-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    margin-left: ($n / 24) * 100%
+                }
+            }
+        }
+        @media (max-width: 993px) {
+            $class: col-pc-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    width: ($n / 24) * 100%
+                }
+            }
+            $class: offset-pc-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    margin-left: ($n / 24) * 100%
+                }
+            }
+        }
+        @media (max-width: 1200px) {
+            $class: col-wide-pc-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    width: ($n / 24) * 100%
+                }
+            }
+            $class: offset-wide-pc-;
+            @for $n from 1 through 24 {
+                &.#{$class}#{$n} {
+                    margin-left: ($n / 24) * 100%
+                }
             }
         }
     }
