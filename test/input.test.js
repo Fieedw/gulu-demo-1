@@ -68,7 +68,7 @@ describe('Input', () => {
         const Constructor = Vue.extend(Input)
         let vm
         afterEach(() => {
-            vm.destroy()
+            vm.destroy
         })
         it('支持change/input/focus/blur事件', () => {
             ['change', 'input', 'focus', 'blur'].forEach((eventName) => {

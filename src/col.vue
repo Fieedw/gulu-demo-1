@@ -10,7 +10,7 @@
         let keys = Object.keys(value)
         let valid = true
         keys.forEach((key) => {
-            if (['span', 'offset'].includes(key)) {
+            if (!['span', 'offset'].includes(key)) {
                 return valid
             }
             return false
@@ -22,27 +22,50 @@
             span: {type: [Number, String]},
             offset: {type: [Number, String]},
             phone: {type: Object, validator,},
-            iPad:{type: Object, validator,},
-            narrowPc:{type: Object, validator,},
-            pc:{type: Object, validator,},
-            widePc:{type: Object, validator,}
+            iPad: {type: Object, validator,},
+            narrowPc: {type: Object, validator,},
+            pc: {type: Object, validator,},
+            widePc: {type: Object, validator,}
         },
         data() {
             return {
                 gutter: 0
             }
         },
+        methods: {
+            createClasses(obj, str = '') {
+                if (!obj) {
+                    return []
+                }
+                let array = []
+                if (obj.span) {
+                    array.push(`col-${str}${obj.span}`)
+                }
+                if (obj.offset) {
+                    array.push(`offset-${str}${obj.offset}`)
+                }
+                return array
+            }
+        },
         computed: {
             colClass() {
-                let {span, offset,phone, iPad, narrowPc, pc, widePc,} = this
-                return [span && `col-${span}`,
-                    offset && `offset-${offset}`,
-                    ...(phone?`col-phone-${phone.span}`:[]),
-                    ...(iPad ? `col-iPad-${ipad.span}` : []),
-                    ...(narrowPc ? `col-narrow-pc-${narrowPc.span}` : []),
-                    ...(pc ? `col-pc-${pc.span}` : []),
-                    ...(widePc ? `col-wide-pc-${widePc.span}` : [])
+                let {span, offset, phone, iPad, narrowPc, pc, widePc,} = this
+                let {createClasses} = this
+                return [
+                    ...createClasses({span, offset}),
+                    ...createClasses(iPad, 'iPad-'),
+                    ...createClasses(narrowPc, 'narrowPc-'),
+                    ...createClasses(pc, 'pc-'),
+                    ...createClasses(widePc, 'widePc-')
                 ]
+                // return [span && `col-${span}`,
+                //     offset && `offset-${offset}`,
+                //     ...(phone?`col-phone-${phone.span}`:[]),
+                //     ...(iPad ? `col-iPad-${ipad.span}` : []),
+                //     ...(narrowPc ? `col-narrow-pc-${narrowPc.span}` : []),
+                //     ...(pc ? `col-pc-${pc.span}` : []),
+                //     ...(widePc ? `col-wide-pc-${widePc.span}` : [])
+                // ]
             },
             colStyle() {
                 return {
@@ -86,7 +109,7 @@
                 margin-left: ($n / 24) * 100%
             }
         }
-        @media (max-width: 576px) {
+        @media (min-width: 576px) {
             $class: col-phone-;
             @for $n from 1 through 24 {
                 &.#{$class}#{$n} {
@@ -100,7 +123,7 @@
                 }
             }
         }
-        @media (max-width: 769px) {
+        @media (min-width: 769px) {
             $class: col-narrow-pc-;
             @for $n from 1 through 24 {
                 &.#{$class}#{$n} {
@@ -114,7 +137,7 @@
                 }
             }
         }
-        @media (max-width: 993px) {
+        @media (min-width: 993px) {
             $class: col-pc-;
             @for $n from 1 through 24 {
                 &.#{$class}#{$n} {
@@ -128,7 +151,7 @@
                 }
             }
         }
-        @media (max-width: 1200px) {
+        @media (min-width: 1200px) {
             $class: col-wide-pc-;
             @for $n from 1 through 24 {
                 &.#{$class}#{$n} {
