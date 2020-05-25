@@ -1,11 +1,11 @@
 <template>
-    <div class="layout">
+    <div :class="layoutClass" class="layout">
         <slot></slot>
     </div>
 </template>
 <script>
     export default {
-        name: 'GuLu-layout',
+        name: 'GuLuLayout',
         data() {
             return {
                 layoutClass: {
@@ -14,7 +14,9 @@
             }
         },
         mounted() {
-            this.$children.forEach(() => {
+            // console.log(this.$children);
+            this.$children.forEach((vm) => {
+                // console.log(vm.$options.name)
                 if (vm.$options.name === 'GuLuSider') {
                     this.layoutClass.hasSider = true
                 }

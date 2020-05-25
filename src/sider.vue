@@ -5,11 +5,9 @@
 </template>
 <script>
     export  default {
-        name:'GuLu-sider'
+        name:'GuLuSider'
     }
 </script>
 <style lang="scss" scoped>
-    .sider{
 
-    }
 </style>
