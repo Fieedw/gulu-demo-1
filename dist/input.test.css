@@ -1,0 +1,84 @@
+.g-icon[data-v-e019e3] {
+  width: 1em;
+  height: 1em;
+}
+.wrapper[data-v-8e4c80] {
+  display: inline-block;
+}
+.wrapper[data-v-8e4c80] > :not(:last-child) {
+  margin-right: 0.5em;
+}
+.wrapper > input[data-v-8e4c80] {
+  border-radius: 4px;
+  padding: 0 8px;
+  height: 32px;
+  border: 1px solid #999;
+}
+.wrapper > input[data-v-8e4c80]:hover {
+  border-color: #666;
+}
+.wrapper > input[data-v-8e4c80]:focus {
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.wrapper > input[disabled][data-v-8e4c80], .wrapper > input[readOnly][data-v-8e4c80] {
+  border-color: #bbb;
+  color: #bbb;
+  cursor: not-allowed;
+}
+.wrapper.error > input[data-v-8e4c80] {
+  border-color: #F1453D;
+}
+.wrapper .icon-error[data-v-8e4c80] {
+  fill: #F1453D;
+}
+.wrapper .errorMessage[data-v-8e4c80] {
+  color: #F1453D;
+}
+.g-button {
+  font-size: var(--font-size);
+  height: var(--button-height);
+  padding: 0 1em;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--button-background);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+.g-button:hover {
+  border-color: var(--border-color-hover);
+}
+.g-button:active {
+  background-color: var(--button-active-background);
+}
+.g-button:focus {
+  outline: none;
+}
+.g-button > .icon {
+  order: 1;
+  margin-right: 0.1em;
+}
+.g-button > .content {
+  order: 2;
+}
+.g-button.icon-right > .icon {
+  order: 2;
+  margin-right: 0;
+  margin-left: 0.1em;
+}
+.g-button.icon-right > .content {
+  order: 1;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(85deg);
+  }
+}
+.g-button .loading {
+  animation: spin 1ms linear infinite;
+}
