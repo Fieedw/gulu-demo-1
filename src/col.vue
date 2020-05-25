@@ -1,6 +1,8 @@
 <template>
     <div :class="colClass" :style="colStyle" class="col">
-        <div style="border:1px solid palevioletred; height:32px;">
+        <div style="background: deepskyblue;line-height: 80px;
+        text-align:center;height:80px;
+margin-top: 10px">
             <slot></slot>
         </div>
     </div>
@@ -87,7 +89,7 @@
     .col {
         /*background-color: grey;*/
         /*height: 56px;*/
-        /*width: 50%;*/
+        width: 100%;
         /*border: 1px solid red;*/
 
         $class: col-;
