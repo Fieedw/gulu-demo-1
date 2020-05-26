@@ -10,6 +10,8 @@ import Header from './header'
 import Content from './content'
 import Footer from './footer'
 import Sider from './sider'
+import Toast from './toast'
+import plugin from './plugin'
 
 
 Vue.component('g-button', Button)
@@ -23,7 +25,8 @@ Vue.component('g-header', Header)
 Vue.component('g-content', Content)
 Vue.component('g-footer', Footer)
 Vue.component('g-sider', Sider)
-
+Vue.component('g-toast', Toast)
+Vue.use(plugin)
 
 
 new Vue({
@@ -32,20 +35,26 @@ new Vue({
         loading1: false,
         loading2: false,
         loading3: false,
-        message:'hi',
+        message: 'hi',
     },
-    methods:{
-        inputChange (e) {
+    created(){
+
+    },
+    methods: {
+        showToast() {this.$toast('我是message')
+        },
+        inputChange(e) {
             console.log(e.target.value)
-        }
+        },
+
     }
 })
-
 
 
 //单元测试
 import chai from 'chai'
 import spies from 'chai-spies'
+
 chai.use(spies)
 
 const expect = chai.expect
@@ -56,7 +65,7 @@ const expect = chai.expect
             icon: 'settings'
         }
     })
-        vm.$mount()
+    vm.$mount()
     let useElement = vm.$el.querySelector('use')
     let href = useElement.getAttribute('xlink:href')
     expect(href).to.equal('#i-settings')
@@ -117,7 +126,7 @@ const expect = chai.expect
             icon: 'settings',
         }
     })
-        vm.$mount()
+    vm.$mount()
     let spy = chai.spy(function () {
     })
     vm.$on('click', spy)

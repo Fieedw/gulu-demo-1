@@ -13478,7 +13478,96 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"node_modules/assertion-error/index.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/toast.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+var _default = {
+  name: 'GuLuToast'
+};
+exports.default = _default;
+        var $fe3761 = exports.default || module.exports;
+      
+      if (typeof $fe3761 === 'function') {
+        $fe3761 = $fe3761.options;
+      }
+    
+        /* template */
+        Object.assign($fe3761, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "toast" }, [_vm._t("default")], 2)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-fe3761",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$fe3761', $fe3761);
+          } else {
+            api.reload('$fe3761', $fe3761);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/plugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _toast = _interopRequireDefault(require("./toast"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+  install: function install(Vue, options) {
+    Vue.prototype.$toast = function (message) {
+      // alert(message)
+      //生成toast 放到body里面
+      var Constructor = Vue.extend(_toast.default);
+      var toast = new Constructor();
+      toast.$slots.default = message;
+      toast.$mount();
+      document.body.appendChild(toast.$el);
+    };
+  }
+};
+exports.default = _default;
+},{"./toast":"src/toast.vue"}],"node_modules/assertion-error/index.js":[function(require,module,exports) {
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
@@ -24562,6 +24651,10 @@ var _footer = _interopRequireDefault(require("./footer"));
 
 var _sider = _interopRequireDefault(require("./sider"));
 
+var _toast = _interopRequireDefault(require("./toast"));
+
+var _plugin = _interopRequireDefault(require("./plugin"));
+
 var _chai = _interopRequireDefault(require("chai"));
 
 var _chaiSpies = _interopRequireDefault(require("chai-spies"));
@@ -24590,6 +24683,10 @@ _vue.default.component('g-footer', _footer.default);
 
 _vue.default.component('g-sider', _sider.default);
 
+_vue.default.component('g-toast', _toast.default);
+
+_vue.default.use(_plugin.default);
+
 new _vue.default({
   el: '#app',
   data: {
@@ -24598,7 +24695,11 @@ new _vue.default({
     loading3: false,
     message: 'hi'
   },
+  created: function created() {},
   methods: {
+    showToast: function showToast() {
+      this.$toast('我是message');
+    },
     inputChange: function inputChange(e) {
       console.log(e.target.value);
     }
@@ -24709,7 +24810,7 @@ var expect = _chai.default.expect;
   // })
   // vm.$el.click()
 }
-},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./col":"src/col.vue","./row":"src/row.vue","./layout":"src/layout.vue","./header":"src/header.vue","./content":"src/content.vue","./footer":"src/footer.vue","./sider":"src/sider.vue","chai":"node_modules/chai/index.js","chai-spies":"node_modules/chai-spies/chai-spies.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./col":"src/col.vue","./row":"src/row.vue","./layout":"src/layout.vue","./header":"src/header.vue","./content":"src/content.vue","./footer":"src/footer.vue","./sider":"src/sider.vue","./toast":"src/toast.vue","./plugin":"src/plugin.js","chai":"node_modules/chai/index.js","chai-spies":"node_modules/chai-spies/chai-spies.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -24737,7 +24838,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53341" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60702" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
