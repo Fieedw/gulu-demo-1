@@ -893,3 +893,11 @@
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
   padding: 0 16px;
 }
+.close[data-v-fe3761] {
+  padding-left: 16px;
+}
+.line[data-v-fe3761] {
+  height: 100%;
+  border-left: 1px solid #666;
+  margin-left: 14px;
+}

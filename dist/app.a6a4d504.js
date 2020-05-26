@@ -13490,8 +13490,54 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
-  name: 'GuLuToast'
+  name: 'GuLuToast',
+  props: {
+    autoClose: {
+      type: Boolean,
+      default: true
+    },
+    autoCloseDelay: {
+      type: Number,
+      default: 5
+    },
+    closeButton: {
+      type: Object,
+      default: function _default() {
+        return {
+          text: '关闭',
+          callback: undefined // callback: (toast) => {
+          //     toast.close()
+          // }
+
+        };
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.autoClose) {
+      setTimeout(function () {
+        _this.close();
+      }, this.autoCloseDelay * 1000);
+    }
+  },
+  methods: {
+    close: function close() {
+      this.$el.remove();
+      this.$destroy();
+    },
+    onClickClose: function onClickClose() {
+      this.close();
+
+      if (this.closeButton && typeof this.closeButton.callback === "function") {
+        this.closeButton.callback();
+      }
+    }
+  }
 };
 exports.default = _default;
         var $fe3761 = exports.default || module.exports;
@@ -13506,7 +13552,24 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "toast" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "toast" },
+    [
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { staticClass: "line" }),
+      _vm._v(" "),
+      _vm.closeButton
+        ? _c(
+            "span",
+            { staticClass: "close", on: { click: _vm.onClickClose } },
+            [_vm._v(_vm._s(_vm.closeButton.text))]
+          )
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13555,11 +13618,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = {
   install: function install(Vue, options) {
-    Vue.prototype.$toast = function (message) {
+    Vue.prototype.$toast = function (message, toastOptions) {
       // alert(message)
       //生成toast 放到body里面
       var Constructor = Vue.extend(_toast.default);
-      var toast = new Constructor();
+      var toast = new Constructor({
+        propsData: {
+          closeButton: {
+            text: '知道了',
+            callback: function callback() {
+              console.log('用户已经知道');
+            }
+          }
+        } // propsData:{closeButton:toastOptions.closeButton}
+
+      });
       toast.$slots.default = message;
       toast.$mount();
       document.body.appendChild(toast.$el);
@@ -24695,13 +24768,14 @@ new _vue.default({
     loading3: false,
     message: 'hi'
   },
-  created: function created() {},
+  created: function created() {// this.$toast('我是 message')
+  },
   methods: {
-    showToast: function showToast() {
-      this.$toast('我是message');
-    },
     inputChange: function inputChange(e) {
       console.log(e.target.value);
+    },
+    showToast: function showToast() {
+      this.$toast('我是message');
     }
   }
 }); //单元测试
