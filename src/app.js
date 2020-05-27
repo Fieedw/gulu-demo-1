@@ -38,14 +38,24 @@ new Vue({
         message: 'hi',
     },
     created() {
-        // this.$toast('我是 message')
     },
     methods: {
         inputChange(e) {
             console.log(e.target.value)
         },
         showToast() {
-            this.$toast('我是message')
+            this.$toast('我是message',{
+                position:'middle',
+                enableHtml: false,
+                    closeButton: {
+                        text: '知道了',
+                        callback() {
+                            console.log('用户已经知道')
+                        }
+                    },
+                autoClose:false,
+                autoCloseDelay: 5
+            })
         },
     }
 })

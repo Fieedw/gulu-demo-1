@@ -7,14 +7,7 @@ export  default {
             //生成toast 放到body里面
             let Constructor = Vue.extend(Toast)
             let toast =new Constructor({
-                    propsData: {
-                        closeButton: {
-                            text: '知道了',
-                            callback() {
-                                console.log('用户已经知道')
-                            }
-                        }
-                    }
+                    propsData:toastOptions
 // propsData:{closeButton:toastOptions.closeButton}
                 }
             )

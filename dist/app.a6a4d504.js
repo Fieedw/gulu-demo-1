@@ -13062,7 +13062,7 @@ var _default = {
     align: {
       type: [Number, String],
       validator: function validator(value) {
-        return ['right', 'left', 'content'].includes(value);
+        return ['right', 'left', 'content'].indexOf(value) >= 0;
       }
     }
   },
@@ -13485,6 +13485,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13514,15 +13522,27 @@ var _default = {
 
         };
       }
+    },
+    enableHtml: {
+      type: Boolean,
+      default: false
+    },
+    position: {
+      type: String,
+      default: 'top',
+      validator: function validator(value) {
+        return ['top', 'bottom', 'middle'].indexOf(value) >= 0;
+      }
     }
   },
+  created: function created() {},
   mounted: function mounted() {
-    var _this = this;
-
-    if (this.autoClose) {
-      setTimeout(function () {
-        _this.close();
-      }, this.autoCloseDelay * 1000);
+    this.updateStyles();
+    this.execAutoClose();
+  },
+  computed: {
+    toastClasses: function toastClasses() {
+      return _defineProperty({}, "position-".concat(this.position), true);
     }
   },
   methods: {
@@ -13536,6 +13556,22 @@ var _default = {
       if (this.closeButton && typeof this.closeButton.callback === "function") {
         this.closeButton.callback();
       }
+    }
+  },
+  updateStyles: function updateStyles() {
+    var _this = this;
+
+    this.$nextlick(function () {
+      _this.$refs.line.style.height = "".concat(_this.$refs.wrapper.getBoundingClientRect().height, "px");
+    });
+  },
+  execAutoClose: function execAutoClose() {
+    var _this2 = this;
+
+    if (this.autoClose) {
+      setTimeout(function () {
+        _this2.close();
+      }, this.autoCloseDelay * 1000);
     }
   }
 };
@@ -13554,9 +13590,20 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "toast" },
+    { ref: "wrapper", staticClass: "toast", class: _vm.toastClasses },
     [
-      _vm._t("default"),
+      _c(
+        "div",
+        { staticClass: "message" },
+        [
+          !_vm.enableHtml
+            ? _vm._t("default")
+            : _c("div", {
+                domProps: { innerHTML: _vm._s(_vm.$slots.default[0]) }
+              })
+        ],
+        2
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "line" }),
       _vm._v(" "),
@@ -13564,11 +13611,10 @@ exports.default = _default;
         ? _c(
             "span",
             { staticClass: "close", on: { click: _vm.onClickClose } },
-            [_vm._v(_vm._s(_vm.closeButton.text))]
+            [_vm._v("\n        " + _vm._s(_vm.closeButton.text) + "\n    ")]
           )
         : _vm._e()
-    ],
-    2
+    ]
   )
 }
 var staticRenderFns = []
@@ -13623,14 +13669,7 @@ var _default = {
       //生成toast 放到body里面
       var Constructor = Vue.extend(_toast.default);
       var toast = new Constructor({
-        propsData: {
-          closeButton: {
-            text: '知道了',
-            callback: function callback() {
-              console.log('用户已经知道');
-            }
-          }
-        } // propsData:{closeButton:toastOptions.closeButton}
+        propsData: toastOptions // propsData:{closeButton:toastOptions.closeButton}
 
       });
       toast.$slots.default = message;
@@ -24768,14 +24807,24 @@ new _vue.default({
     loading3: false,
     message: 'hi'
   },
-  created: function created() {// this.$toast('我是 message')
-  },
+  created: function created() {},
   methods: {
     inputChange: function inputChange(e) {
       console.log(e.target.value);
     },
     showToast: function showToast() {
-      this.$toast('我是message');
+      this.$toast('我是message', {
+        position: 'middle',
+        enableHtml: false,
+        closeButton: {
+          text: '知道了',
+          callback: function callback() {
+            console.log('用户已经知道');
+          }
+        },
+        autoClose: false,
+        autoCloseDelay: 5
+      });
     }
   }
 }); //单元测试
@@ -24912,7 +24961,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60702" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49727" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

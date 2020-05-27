@@ -13,7 +13,7 @@
             align:{
               type:[Number,String]  ,
                 validator(value){
-                  return ['right','left','content'].includes(value)
+                  return ['right','left','content'].indexOf(value) >=0;
                 }
             }
         },
