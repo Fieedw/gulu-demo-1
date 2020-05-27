@@ -44,17 +44,17 @@ new Vue({
             console.log(e.target.value)
         },
         showToast() {
-            this.$toast('我是message',{
-                position:'middle',
+            this.$toast(`我是message ${Math.random()*100}`, {
+                position: 'middle',
                 enableHtml: false,
-                    closeButton: {
-                        text: '知道了',
-                        callback() {
-                            console.log('用户已经知道')
-                        }
-                    },
-                autoClose:false,
-                autoCloseDelay: 5
+                closeButton: {
+                    text: '知道了',
+                    callback() {
+                        console.log('用户已经知道')
+                    }
+                },
+                autoClose: false,
+                autoCloseDelay: 3
             })
         },
     }

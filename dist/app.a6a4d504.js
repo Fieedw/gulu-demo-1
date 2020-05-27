@@ -13662,23 +13662,37 @@ var _toast = _interopRequireDefault(require("./toast"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var currentToast;
 var _default = {
   install: function install(Vue, options) {
     Vue.prototype.$toast = function (message, toastOptions) {
-      // alert(message)
-      //生成toast 放到body里面
-      var Constructor = Vue.extend(_toast.default);
-      var toast = new Constructor({
-        propsData: toastOptions // propsData:{closeButton:toastOptions.closeButton}
+      if (currentToast) {
+        currentToast.close();
+      }
 
+      currentToast = createToast({
+        Vue: Vue,
+        message: message,
+        propsData: toastOptions
       });
-      toast.$slots.default = message;
-      toast.$mount();
-      document.body.appendChild(toast.$el);
     };
   }
 };
 exports.default = _default;
+
+function createToast(_ref) {
+  var Vue = _ref.Vue,
+      message = _ref.message,
+      propsData = _ref.propsData;
+  var Constructor = Vue.extend(_toast.default);
+  var toast = new Constructor({
+    propsData: propsData
+  });
+  toast.$slots.default = [message];
+  toast.$mount();
+  document.body.appendChild(toast.$el);
+  return toast;
+}
 },{"./toast":"src/toast.vue"}],"node_modules/assertion-error/index.js":[function(require,module,exports) {
 /*!
  * assertion-error
@@ -24813,7 +24827,7 @@ new _vue.default({
       console.log(e.target.value);
     },
     showToast: function showToast() {
-      this.$toast('我是message', {
+      this.$toast("\u6211\u662Fmessage ".concat(Math.random() * 100), {
         position: 'middle',
         enableHtml: false,
         closeButton: {
@@ -24823,7 +24837,7 @@ new _vue.default({
           }
         },
         autoClose: false,
-        autoCloseDelay: 5
+        autoCloseDelay: 3
       });
     }
   }
@@ -24961,7 +24975,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49727" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52935" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
