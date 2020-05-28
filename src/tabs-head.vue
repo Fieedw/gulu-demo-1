@@ -1,19 +1,32 @@
 <template>
     <div class="tabs-head">
         <slot></slot>
+        <div class="actions-wrapper">
         <slot name="actions"></slot>
+        </div>
     </div>
 </template>
 <script>
     export default {
         name: 'GuLuTabsHead',
-        inject:['eventBus'],
+        inject: ['eventBus'],
         created() {
-            console.log(`爷爷给head的 eventBus`);
-            console.log(this.eventBus)
+            // console.log(`爷爷给head的 eventBus`);
+            // console.log(this.eventBus)
+            this.$emit('update:selected', 'tabs-head 的数据')
         }
     }
 </script>
-<style>
-
+<style lang="scss" scoped>
+    $tab-height: 40px;
+    .tabs-head {
+        display: flex;
+        height: $tab-height;
+        justify-content: flex-start;
+        align-items: center;
+        border: 1px solid red;
+        > .actions-wrapper{
+            margin-left: auto;
+        }
+    }
 </style>

@@ -13744,7 +13744,9 @@ var _default = {
       eventBus: this.eventBus
     };
   },
-  created: function created() {}
+  mounted: function mounted() {
+    this.eventBus.$emit('update:selected', this.selected);
+  }
 };
 exports.default = _default;
         var $e559b4 = exports.default || module.exports;
@@ -13807,12 +13809,15 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
   name: 'GuLuTabsHead',
   inject: ['eventBus'],
   created: function created() {
-    console.log("\u7237\u7237\u7ED9head\u7684 eventBus");
-    console.log(this.eventBus);
+    // console.log(`爷爷给head的 eventBus`);
+    // console.log(this.eventBus)
+    this.$emit('update:selected', 'tabs-head 的数据');
   }
 };
 exports.default = _default;
@@ -13831,7 +13836,11 @@ exports.default = _default;
   return _c(
     "div",
     { staticClass: "tabs-head" },
-    [_vm._t("default"), _vm._v(" "), _vm._t("actions")],
+    [
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { staticClass: "actions-wrapper" }, [_vm._t("actions")], 2)
+    ],
     2
   )
 }
@@ -13842,7 +13851,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-c90fe0",
             functional: undefined
           };
         })());
@@ -13883,9 +13892,8 @@ exports.default = void 0;
 var _default = {
   name: 'GuLuTabsBody',
   inject: ['eventBus'],
-  created: function created() {
-    console.log("\u7237\u7237\u7ED9body\u7684 eventBus");
-    console.log(this.eventBus);
+  created: function created() {// console.log(`爷爷给body的 eventBus`);
+    // console.log(this.eventBus)
   }
 };
 exports.default = _default;
@@ -13950,16 +13958,41 @@ exports.default = void 0;
 //
 var _default = {
   name: 'GuLuTabsItem',
+  inject: ['eventBus'],
+  data: function data() {
+    return {
+      active: false
+    };
+  },
   props: {
     disabled: {
       type: Boolean,
       default: false
+    },
+    name: {
+      type: [String, Number]
     }
   },
-  inject: ['eventBus'],
+  computed: {
+    classes: function classes() {
+      return {
+        active: this.active
+      };
+    }
+  },
   created: function created() {
-    console.log("\u7237\u7237\u7ED9item\u7684 eventBus");
-    console.log(this.eventBus);
+    var _this = this;
+
+    // console.log(`爷爷给item的 eventBus`);
+    // console.log(this.eventBus)
+    this.eventBus.$on('update:selected', function (name) {
+      _this.active = name === _this.name;
+    });
+  },
+  methods: {
+    xxx: function xxx() {
+      this.eventBus.$emit('update:selected', this.name);
+    }
   }
 };
 exports.default = _default;
@@ -13975,7 +14008,12 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tabs-item" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "tabs-item", class: _vm.classes, on: { click: _vm.xxx } },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13984,7 +14022,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-2d083c",
             functional: undefined
           };
         })());
@@ -14025,9 +14063,32 @@ exports.default = void 0;
 var _default = {
   name: 'GuLuTabsPane',
   inject: ['eventBus'],
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+  props: {
+    name: {
+      type: [String, Number],
+      require: true
+    }
+  },
+  computed: {
+    classes: function classes() {
+      return {
+        active: this.active
+      };
+    }
+  },
   created: function created() {
-    console.log("\u7237\u7237\u7ED9pane\u7684  eventBus");
-    console.log(this.eventBus);
+    var _this = this;
+
+    // console.log(`爷爷给pane的  eventBus`);
+    // console.log(this.eventBus);
+    this.eventBus.$on('update:selected', function (name) {
+      _this.active = name === _this.name;
+    });
   }
 };
 exports.default = _default;
@@ -14043,7 +14104,14 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tabs-pane" }, [_vm._t("default")], 2)
+  return _vm.active
+    ? _c(
+        "div",
+        { staticClass: "tabs-pane", class: _vm.classes },
+        [_vm._t("default")],
+        2
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -14052,7 +14120,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-959e27",
             functional: undefined
           };
         })());
