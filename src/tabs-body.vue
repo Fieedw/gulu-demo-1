@@ -5,7 +5,12 @@
 </template>
 <script>
     export default {
-        name:'GuLuTabsBody'
+        name:'GuLuTabsBody',
+        inject:['eventBus'],
+        created() {
+            console.log(`爷爷给body的 eventBus`);
+            console.log(this.eventBus)
+        }
     }
 </script>
 <style>

@@ -13709,6 +13709,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -13728,6 +13733,16 @@ var _default = {
         return ['horizontal', 'vertical'].indexOf(value) >= 0;
       }
     }
+  },
+  data: function data() {
+    return {
+      eventBus: new _vue.default()
+    };
+  },
+  provide: function provide() {
+    return {
+      eventBus: this.eventBus
+    };
   },
   created: function created() {}
 };
@@ -13779,7 +13794,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/tabs-head.vue":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js"}],"src/tabs-head.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13793,7 +13808,12 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: 'GuLuTabsHead'
+  name: 'GuLuTabsHead',
+  inject: ['eventBus'],
+  created: function created() {
+    console.log("\u7237\u7237\u7ED9head\u7684 eventBus");
+    console.log(this.eventBus);
+  }
 };
 exports.default = _default;
         var $c90fe0 = exports.default || module.exports;
@@ -13861,7 +13881,12 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: 'GuLuTabsBody'
+  name: 'GuLuTabsBody',
+  inject: ['eventBus'],
+  created: function created() {
+    console.log("\u7237\u7237\u7ED9body\u7684 eventBus");
+    console.log(this.eventBus);
+  }
 };
 exports.default = _default;
         var $72a013 = exports.default || module.exports;
@@ -13930,6 +13955,11 @@ var _default = {
       type: Boolean,
       default: false
     }
+  },
+  inject: ['eventBus'],
+  created: function created() {
+    console.log("\u7237\u7237\u7ED9item\u7684 eventBus");
+    console.log(this.eventBus);
   }
 };
 exports.default = _default;
@@ -13993,7 +14023,12 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: 'GuLuTabsPane'
+  name: 'GuLuTabsPane',
+  inject: ['eventBus'],
+  created: function created() {
+    console.log("\u7237\u7237\u7ED9pane\u7684  eventBus");
+    console.log(this.eventBus);
+  }
 };
 exports.default = _default;
         var $959e27 = exports.default || module.exports;

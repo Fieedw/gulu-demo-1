@@ -6,7 +6,12 @@
 </template>
 <script>
     export default {
-        name: 'GuLuTabsHead'
+        name: 'GuLuTabsHead',
+        inject:['eventBus'],
+        created() {
+            console.log(`爷爷给head的 eventBus`);
+            console.log(this.eventBus)
+        }
     }
 </script>
 <style>
