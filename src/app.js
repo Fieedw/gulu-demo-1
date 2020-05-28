@@ -43,9 +43,18 @@ new Vue({
         inputChange(e) {
             console.log(e.target.value)
         },
-        showToast() {
+        showToast1(){
+            this.showToast('top')
+        },
+        showToast2(){
+            this.showToast('middle')
+        },
+        showToast3(){
+            this.showToast('bottom')
+        },
+        showToast(position) {
             this.$toast(`我是message ${Math.random()*100}`, {
-                position: 'middle',
+                position,
                 enableHtml: false,
                 closeButton: {
                     text: '知道了',

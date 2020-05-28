@@ -13500,17 +13500,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 var _default = {
   name: 'GuLuToast',
   props: {
     autoClose: {
-      type: Boolean,
-      default: true
+      type: [Boolean, Number],
+      default: 5,
+      validator: function validator(value) {
+        return value === false || typeof value === 'number';
+      }
     },
-    autoCloseDelay: {
-      type: Number,
-      default: 5
-    },
+    // autoCloseDelay: {
+    //     type: Number,
+    //     default: 5,
+    // },
     closeButton: {
       type: Object,
       default: function _default() {
@@ -13548,6 +13553,7 @@ var _default = {
   methods: {
     close: function close() {
       this.$el.remove();
+      this.emit('beforeClose');
       this.$destroy();
     },
     onClickClose: function onClickClose() {
@@ -13556,22 +13562,22 @@ var _default = {
       if (this.closeButton && typeof this.closeButton.callback === "function") {
         this.closeButton.callback();
       }
-    }
-  },
-  updateStyles: function updateStyles() {
-    var _this = this;
+    },
+    updateStyles: function updateStyles() {
+      var _this = this;
 
-    this.$nextlick(function () {
-      _this.$refs.line.style.height = "".concat(_this.$refs.wrapper.getBoundingClientRect().height, "px");
-    });
-  },
-  execAutoClose: function execAutoClose() {
-    var _this2 = this;
+      this.$nextTick(function () {
+        _this.$refs.line.style.height = "".concat(_this.$refs.wrapper.getBoundingClientRect().height, "px");
+      });
+    },
+    execAutoClose: function execAutoClose() {
+      var _this2 = this;
 
-    if (this.autoClose) {
-      setTimeout(function () {
-        _this2.close();
-      }, this.autoCloseDelay * 1000);
+      if (this.autoClose) {
+        setTimeout(function () {
+          _this2.close();
+        }, this.autoCloseDelay * 1000);
+      }
     }
   }
 };
@@ -13588,10 +13594,8 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { ref: "wrapper", staticClass: "toast", class: _vm.toastClasses },
-    [
+  return _c("div", { staticClass: "wrapper", class: _vm.toastClasses }, [
+    _c("div", { ref: "toast", staticClass: "toast" }, [
       _c(
         "div",
         { staticClass: "message" },
@@ -13605,7 +13609,7 @@ exports.default = _default;
         2
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "line" }),
+      _c("div", { ref: "line", staticClass: "line" }),
       _vm._v(" "),
       _vm.closeButton
         ? _c(
@@ -13614,8 +13618,8 @@ exports.default = _default;
             [_vm._v("\n        " + _vm._s(_vm.closeButton.text) + "\n    ")]
           )
         : _vm._e()
-    ]
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13673,7 +13677,10 @@ var _default = {
       currentToast = createToast({
         Vue: Vue,
         message: message,
-        propsData: toastOptions
+        propsData: toastOptions,
+        onClose: function onClose() {
+          currentToast = null;
+        }
       });
     };
   }
@@ -13683,13 +13690,15 @@ exports.default = _default;
 function createToast(_ref) {
   var Vue = _ref.Vue,
       message = _ref.message,
-      propsData = _ref.propsData;
+      propsData = _ref.propsData,
+      onClose = _ref.onClose;
   var Constructor = Vue.extend(_toast.default);
   var toast = new Constructor({
     propsData: propsData
   });
   toast.$slots.default = [message];
   toast.$mount();
+  toast.$on('close', onclose);
   document.body.appendChild(toast.$el);
   return toast;
 }
@@ -24826,9 +24835,18 @@ new _vue.default({
     inputChange: function inputChange(e) {
       console.log(e.target.value);
     },
-    showToast: function showToast() {
+    showToast1: function showToast1() {
+      this.showToast('top');
+    },
+    showToast2: function showToast2() {
+      this.showToast('middle');
+    },
+    showToast3: function showToast3() {
+      this.showToast('bottom');
+    },
+    showToast: function showToast(position) {
       this.$toast("\u6211\u662Fmessage ".concat(Math.random() * 100), {
-        position: 'middle',
+        position: position,
         enableHtml: false,
         closeButton: {
           text: '知道了',
@@ -24975,7 +24993,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52935" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56859" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
