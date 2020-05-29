@@ -13067,14 +13067,13 @@ var _default = {
     }
   },
   //页面打印空对象，创建于内存
-  created: function created() {
-    console.log('row created');
+  created: function created() {// console.log('row created')
   },
   //页面有对象，创建并显示于body
   mounted: function mounted() {
     var _this = this;
 
-    console.log('row mounted ');
+    // console.log('row mounted ')
     this.$children.forEach(function (vm) {
       vm.gutter = _this.gutter;
     });
@@ -13576,7 +13575,7 @@ var _default = {
       if (this.autoClose) {
         setTimeout(function () {
           _this2.close();
-        }, this.autoCloseDelay * 1000);
+        }, this.autoClose * 1000);
       }
     }
   }
@@ -13745,7 +13744,21 @@ var _default = {
     };
   },
   mounted: function mounted() {
-    this.eventBus.$emit('update:selected', this.selected);
+    var _this = this;
+
+    if (this.$children.length === 0) {
+      console && console.warn && console.warn('tabs的子组件应该是tabs-head和tabs-nav，但你没有写子组件');
+    }
+
+    this.$children.forEach(function (vm) {
+      if (vm.$options.name === 'GuLuTabsHead') {
+        vm.$children.forEach(function (childVm) {
+          if (childVm.$options.name === 'GuLuTabsItem' && childVm.name === _this.selected) {
+            _this.eventBus.$emit('update:selected', _this.selected, childVm);
+          }
+        });
+      }
+    });
   }
 };
 exports.default = _default;
@@ -13811,13 +13824,23 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   name: 'GuLuTabsHead',
   inject: ['eventBus'],
-  created: function created() {
-    // console.log(`爷爷给head的 eventBus`);
-    // console.log(this.eventBus)
-    this.$emit('update:selected', 'tabs-head 的数据');
+  mounted: function mounted() {
+    var _this = this;
+
+    this.eventBus.$on('update:selected', function (item, vm) {
+      var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
+          width = _vm$$el$getBoundingCl.width,
+          height = _vm$$el$getBoundingCl.height,
+          top = _vm$$el$getBoundingCl.top,
+          left = _vm$$el$getBoundingCl.left;
+
+      _this.$refs.line.style.width = "".concat(width, "px");
+      _this.$refs.line.style.left = "".concat(left, "px");
+    });
   }
 };
 exports.default = _default;
@@ -13838,6 +13861,8 @@ exports.default = _default;
     { staticClass: "tabs-head" },
     [
       _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { ref: "line", staticClass: "line" }),
       _vm._v(" "),
       _c("div", { staticClass: "actions-wrapper" }, [_vm._t("actions")], 2)
     ],
@@ -13892,9 +13917,7 @@ exports.default = void 0;
 var _default = {
   name: 'GuLuTabsBody',
   inject: ['eventBus'],
-  created: function created() {// console.log(`爷爷给body的 eventBus`);
-    // console.log(this.eventBus)
-  }
+  created: function created() {}
 };
 exports.default = _default;
         var $72a013 = exports.default || module.exports;
@@ -13970,28 +13993,35 @@ var _default = {
       default: false
     },
     name: {
-      type: [String, Number]
+      type: String | Number,
+      required: true
     }
   },
   computed: {
     classes: function classes() {
       return {
-        active: this.active
+        active: this.active,
+        disabled: this.disabled
       };
     }
   },
   created: function created() {
     var _this = this;
 
-    // console.log(`爷爷给item的 eventBus`);
-    // console.log(this.eventBus)
-    this.eventBus.$on('update:selected', function (name) {
-      _this.active = name === _this.name;
-    });
+    if (this.eventBus) {
+      this.eventBus.$on('update:selected', function (name) {
+        _this.active = name === _this.name;
+      });
+    }
   },
   methods: {
-    xxx: function xxx() {
-      this.eventBus.$emit('update:selected', this.name);
+    onClick: function onClick() {
+      if (this.disabled) {
+        return;
+      }
+
+      this.eventBus && this.eventBus.$emit('update:selected', this.name, this);
+      this.$emit('click', this);
     }
   }
 };
@@ -14010,7 +14040,12 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "tabs-item", class: _vm.classes, on: { click: _vm.xxx } },
+    {
+      staticClass: "tabs-item",
+      class: _vm.classes,
+      attrs: { "data-name": _vm.name },
+      on: { click: _vm.onClick }
+    },
     [_vm._t("default")],
     2
   )
@@ -14070,8 +14105,8 @@ var _default = {
   },
   props: {
     name: {
-      type: [String, Number],
-      require: true
+      type: String | Number,
+      required: true
     }
   },
   computed: {
@@ -14084,8 +14119,6 @@ var _default = {
   created: function created() {
     var _this = this;
 
-    // console.log(`爷爷给pane的  eventBus`);
-    // console.log(this.eventBus);
     this.eventBus.$on('update:selected', function (name) {
       _this.active = name === _this.name;
     });
@@ -25458,7 +25491,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51387" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52250" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

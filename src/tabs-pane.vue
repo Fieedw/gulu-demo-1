@@ -7,36 +7,36 @@
     export default {
         name: 'GuLuTabsPane',
         inject: ['eventBus'],
-        data() {
+        data () {
             return {
                 active: false
             }
         },
         props: {
             name: {
-                type: [String, Number],
-                require: true,
+                type: String | Number,
+                required: true
             }
         },
-        computed:{
-            classes(){
-                return{active: this.active}
+        computed: {
+            classes () {
+                return {
+                    active: this.active
+                }
             }
         },
-        created: function () {
-            // console.log(`爷爷给pane的  eventBus`);
-            // console.log(this.eventBus);
+        created () {
             this.eventBus.$on('update:selected', (name) => {
                 this.active = name === this.name;
             })
-        },
-
+        }
     }
 </script>
 <style lang="scss" scoped>
-.tabs-pane{
-    &.active{
-        background: red;
+    .tabs-pane {
+        padding: 1em;
+        min-height: 60px;
+        &.active {
+        }
     }
-}
 </style>

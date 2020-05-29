@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes" @click="xxx" class="tabs-item">
+    <div :class="classes" :data-name="name" @click="onClick" class="tabs-item">
         <slot></slot>
     </div>
 </template>
@@ -7,7 +7,7 @@
     export default {
         name: 'GuLuTabsItem',
         inject: ['eventBus'],
-        data() {
+        data () {
             return {
                 active: false
             }
@@ -15,37 +15,55 @@
         props: {
             disabled: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             name: {
-                type: [String, Number]
+                type: String | Number,
+                required: true
             }
         },
-        computed:{
-            classes(){
-                return{active: this.active}
+        computed: {
+            classes () {
+                return {
+                    active: this.active,
+                    disabled: this.disabled
+                }
             }
         },
-        created() {
-            // console.log(`爷爷给item的 eventBus`);
-            // console.log(this.eventBus)
-            this.eventBus.$on('update:selected', (name) => {
-                this.active = name === this.name;
-            })
+        created () {
+            if (this.eventBus) {
+                this.eventBus.$on('update:selected', (name) => {
+                    this.active = name === this.name;
+                })
+            }
         },
         methods: {
-            xxx() {
-                this.eventBus.$emit('update:selected', this.name)
+            onClick () {
+                if (this.disabled) { return }
+                this.eventBus && this.eventBus.$emit('update:selected', this.name, this)
+                this.$emit('click', this)
             }
         }
     }
 </script>
 <style lang="scss" scoped>
+    $blue: blue;
+    $disabled-text-color: grey;
     .tabs-item {
         flex-shrink: 0;
-        padding: 0 2em;
-        &.active{
-        background: red;
-         }
+        padding: 0 1em;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &.active {
+            color: $blue;
+            font-weight: bold;
+        }
+        &.disabled {
+            color: $disabled-text-color;
+            cursor: not-allowed;
+        }
     }
 </style>

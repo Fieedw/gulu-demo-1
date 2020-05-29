@@ -19,11 +19,11 @@
         },
         //页面打印空对象，创建于内存
         created() {
-            console.log('row created')
+            // console.log('row created')
         },
         //页面有对象，创建并显示于body
         mounted() {
-            console.log('row mounted ')
+            // console.log('row mounted ')
             this.$children.forEach((vm) => {
                 vm.gutter = this.gutter
             })

@@ -85,7 +85,7 @@
                 if (this.autoClose) {
                     setTimeout(() => {
                         this.close()
-                    }, this.autoCloseDelay * 1000)
+                    }, this.autoClose* 1000)
                 }
             }
         },
@@ -193,7 +193,7 @@
         .line {
             height: 100%;
             border-left: 1px solid #666;
-            margin-left: 14px;
+
         }
 
 
