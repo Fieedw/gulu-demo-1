@@ -13539,7 +13539,6 @@ var _default = {
       }
     }
   },
-  created: function created() {},
   mounted: function mounted() {
     this.updateStyles();
     this.execAutoClose();
@@ -13550,18 +13549,6 @@ var _default = {
     }
   },
   methods: {
-    close: function close() {
-      this.$el.remove();
-      this.emit('beforeClose');
-      this.$destroy();
-    },
-    onClickClose: function onClickClose() {
-      this.close();
-
-      if (this.closeButton && typeof this.closeButton.callback === "function") {
-        this.closeButton.callback();
-      }
-    },
     updateStyles: function updateStyles() {
       var _this = this;
 
@@ -13576,6 +13563,18 @@ var _default = {
         setTimeout(function () {
           _this2.close();
         }, this.autoClose * 1000);
+      }
+    },
+    close: function close() {
+      this.$el.remove();
+      this.emit('beforeClose');
+      this.$destroy();
+    },
+    onClickClose: function onClickClose() {
+      this.close();
+
+      if (this.closeButton && typeof this.closeButton.callback === "function") {
+        this.closeButton.callback();
       }
     }
   }
@@ -13754,6 +13753,8 @@ var _default = {
       if (vm.$options.name === 'GuLuTabsHead') {
         vm.$children.forEach(function (childVm) {
           if (childVm.$options.name === 'GuLuTabsItem' && childVm.name === _this.selected) {
+            console.log(childVm.$el);
+
             _this.eventBus.$emit('update:selected', _this.selected, childVm);
           }
         });
@@ -13832,6 +13833,8 @@ var _default = {
     var _this = this;
 
     this.eventBus.$on('update:selected', function (item, vm) {
+      console.log(vm.$el);
+
       var _vm$$el$getBoundingCl = vm.$el.getBoundingClientRect(),
           width = _vm$$el$getBoundingCl.width,
           height = _vm$$el$getBoundingCl.height,
@@ -25319,6 +25322,7 @@ _vue.default.component('g-tabs-item', _tabsItem.default);
 
 _vue.default.component('g-tabs-pane', _tabsPane.default);
 
+_vue.default.config.productionTip = false;
 new _vue.default({
   el: '#app',
   data: {
@@ -25343,7 +25347,7 @@ new _vue.default({
       this.showToast('bottom');
     },
     showToast: function showToast(position) {
-      this.$toast("\u6211\u662Fmessage ".concat(Math.random() * 100), {
+      this.$toast("\u6211\u662Fmessage ".concat(parseInt(Math.random() * 100)), {
         position: position,
         enableHtml: false,
         closeButton: {
@@ -25352,12 +25356,12 @@ new _vue.default({
             console.log('用户已经知道');
           }
         },
-        autoClose: false,
-        autoCloseDelay: 3
+        autoClose: 3
       });
     }
   }
-}); //单元测试
+});
+_vue.default.config.productionTip = false; //单元测试
 
 _chai.default.use(_chaiSpies.default);
 
@@ -25491,7 +25495,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52250" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52681" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

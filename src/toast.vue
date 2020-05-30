@@ -51,8 +51,6 @@
                 }
             }
         },
-        created() {
-        },
         mounted() {
             this.updateStyles()
             this.execAutoClose()
@@ -65,6 +63,18 @@
             }
         },
         methods: {
+            updateStyles() {
+                this.$nextTick(() => {
+                    this.$refs.line.style.height = `${this.$refs.wrapper.getBoundingClientRect().height}px`
+                })
+            },
+            execAutoClose() {
+                if (this.autoClose) {
+                    setTimeout(() => {
+                        this.close()
+                    }, this.autoClose * 1000)
+                }
+            },
             close() {
                 this.$el.remove()
                 this.emit('beforeClose')
@@ -76,18 +86,6 @@
                     this.closeButton.callback()
                 }
             },
-            updateStyles() {
-                this.$nextTick(() => {
-                    this.$refs.line.style.height = `${this.$refs.wrapper.getBoundingClientRect().height}px`
-                })
-            },
-            execAutoClose() {
-                if (this.autoClose) {
-                    setTimeout(() => {
-                        this.close()
-                    }, this.autoClose* 1000)
-                }
-            }
         },
 
     }
@@ -133,7 +131,7 @@
         position: fixed;
         left: 50%;
         transform: translateX(-50%);
-        $animation-duration: 1s;
+        $animation-duration: 300ms;
 
         &.position-top {
             top: 0;
@@ -158,7 +156,7 @@
 
         &.position-middle {
             top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%) translateY(-50%);
 
             .toast {
                 animation: fade-in $animation-duration;
@@ -171,15 +169,12 @@
         min-height: $toast-min-height;
         line-height: 1.8;
         display: flex;
-        transform: translateX(-50%);
-        display: flex;
         color: white;
         align-items: center;
         background: $toast-bg;
         border-radius: 4px;
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
         padding: 0 16px;
-        position: fixed;
 
         .message {
             padding: 8px 0;
@@ -193,7 +188,7 @@
         .line {
             height: 100%;
             border-left: 1px solid #666;
-
+            margin-left: 16px;
         }
 
 

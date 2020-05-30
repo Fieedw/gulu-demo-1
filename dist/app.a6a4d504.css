@@ -916,7 +916,7 @@
 .wrapper.position-top .toast[data-v-fe3761] {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  animation: slide-down-data-v-fe3761 1s;
+  animation: slide-down-data-v-fe3761 300ms;
 }
 .wrapper.position-bottom[data-v-fe3761] {
   bottom: 0;
@@ -924,21 +924,19 @@
 .wrapper.position-bottom .toast[data-v-fe3761] {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  animation: 1s;
+  animation: 300ms;
 }
 .wrapper.position-middle[data-v-fe3761] {
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%) translateY(-50%);
 }
 .wrapper.position-middle .toast[data-v-fe3761] {
-  animation: fade-in-data-v-fe3761 1s;
+  animation: fade-in-data-v-fe3761 300ms;
 }
 .toast[data-v-fe3761] {
   font-size: 14px;
   min-height: 40px;
   line-height: 1.8;
-  display: flex;
-  transform: translateX(-50%);
   display: flex;
   color: white;
   align-items: center;
@@ -946,7 +944,6 @@
   border-radius: 4px;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
   padding: 0 16px;
-  position: fixed;
 }
 .toast .message[data-v-fe3761] {
   padding: 8px 0;
@@ -958,6 +955,7 @@
 .toast .line[data-v-fe3761] {
   height: 100%;
   border-left: 1px solid #666;
+  margin-left: 16px;
 }
 .tabs {
     border-radius: 4px 4px 0 0;

@@ -37,7 +37,7 @@ Vue.component('g-tabs-head',TabsHead)
 Vue.component('g-tabs-body',TabsBody)
 Vue.component('g-tabs-item',TabsItem)
 Vue.component('g-tabs-pane',TabsPane)
-
+Vue.config.productionTip = false
 
 new Vue({
     el: '#app',
@@ -64,7 +64,7 @@ new Vue({
             this.showToast('bottom')
         },
         showToast(position) {
-            this.$toast(`我是message ${Math.random()*100}`, {
+            this.$toast(`我是message ${parseInt(Math.random()*100)}`, {
                 position,
                 enableHtml: false,
                 closeButton: {
@@ -73,13 +73,12 @@ new Vue({
                         console.log('用户已经知道')
                     }
                 },
-                autoClose: false,
-                autoCloseDelay: 3
+                autoClose: 3,
             })
         },
     }
 })
-
+Vue.config.productionTip = false
 
 //单元测试
 import chai from 'chai'
