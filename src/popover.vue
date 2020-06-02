@@ -1,5 +1,5 @@
 <template>
-    <div @click="onClick" class="popover" ref="popover">
+    <div class="popover" ref="popover">
         <div :class="{[`position-${position}`]:true}" class="content-wrapper" ref="contentWrapper" v-if="visible">
             <slot name="content"></slot>
         </div>
@@ -15,6 +15,38 @@
         data() {
             return {visible: false}
         },
+        mounted() {
+            if (this.trigger === 'click') {
+                this.$refs.popover.addEventListener('click', this.onClick)
+            } else {
+                this.$refs.popover.addEventListener('mouseenter', this.open)
+                this.$refs.popover.addEventListener('mouseleave', this.close)
+            }
+        },
+        destroyed() {
+            if (this.trigger === 'click') {
+                this.$refs.popover.removeEventListener('click', this.onClick)
+            } else {
+                this.$refs.popover.removeEventListener('mouseenter', this.open)
+                this.$refs.popover.removeEventListener('mouseleave', this.close)
+            }
+        },
+        computed: {
+            openEvent () {
+                if (this.trigger === 'click') {
+                    return 'click'
+                }else{
+                    return 'mouseenter'
+                }
+            },
+            closeEvent(){
+              if (this.trigger === 'click'){
+                  return 'click'
+              }  else{
+                  return 'mouseleave'
+              }
+            }
+        },
         props: {
             position: {
                 type: String,
@@ -22,6 +54,13 @@
                 validator(value) {
                     return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
                 }
+            },
+            trigger:{
+              type:String,
+              default:'click',
+              validator(value) {
+                  return ['click','hover'].indexOf(value) >= 0
+              }
             }
         },
         methods: {
@@ -31,7 +70,7 @@
                 document.body.appendChild(contentWrapper)
                 const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
                 const {height: height2} = contentWrapper.getBoundingClientRect()
-                let positions= {
+                let positions = {
                     top: {
                         top: top + window.scrollY,
                         left: left + window.scrollX,
@@ -50,7 +89,7 @@
                     }
                 }
                 contentWrapper.style.left = positions[this.position].left + 'px'
-                    contentWrapper.style.top = positions[this.position].top + 'px'
+                contentWrapper.style.top = positions[this.position].top + 'px'
             },
             // positionContent() {
             //     document.body.appendChild(this.$refs.contentWrapper)
