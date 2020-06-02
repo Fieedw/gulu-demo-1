@@ -1003,3 +1003,86 @@
   padding: 1em;
   min-height: 60px;
 }
+.popover[data-v-be1b7b] {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+.content-wrapper[data-v-be1b7b] {
+  position: absolute;
+  border: 1px solid #333;
+  border-radius: 4px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+  background: white;
+  padding: 0.5em 1em;
+  max-width: 20em;
+  word-break: break-all;
+}
+.content-wrapper[data-v-be1b7b]::before, .content-wrapper[data-v-be1b7b]::after {
+  content: "";
+  display: block;
+  border: 10px solid transparent;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.content-wrapper.position-top[data-v-be1b7b] {
+  transform: translateY(-100%);
+  margin-top: -10px;
+}
+.content-wrapper.position-top[data-v-be1b7b]::before, .content-wrapper.position-top[data-v-be1b7b]::after {
+  left: 10px;
+}
+.content-wrapper.position-top[data-v-be1b7b]::before {
+  border-top-color: black;
+  top: 100%;
+}
+.content-wrapper.position-top[data-v-be1b7b]::after {
+  border-top-color: white;
+  top: calc(100% - 1px);
+}
+.content-wrapper.position-bottom[data-v-be1b7b] {
+  margin-top: 10px;
+}
+.content-wrapper.position-bottom[data-v-be1b7b]::before, .content-wrapper.position-bottom[data-v-be1b7b]::after {
+  left: 10px;
+}
+.content-wrapper.position-bottom[data-v-be1b7b]::before {
+  border-bottom-color: black;
+  bottom: 100%;
+}
+.content-wrapper.position-bottom[data-v-be1b7b]::after {
+  border-bottom-color: white;
+  bottom: calc(100% - 1px);
+}
+.content-wrapper.position-left[data-v-be1b7b] {
+  transform: translateX(-100%);
+  margin-left: -10px;
+}
+.content-wrapper.position-left[data-v-be1b7b]::before, .content-wrapper.position-left[data-v-be1b7b]::after {
+  transform: translateY(-50%);
+  top: 50%;
+}
+.content-wrapper.position-left[data-v-be1b7b]::before {
+  border-left-color: black;
+  left: 100%;
+}
+.content-wrapper.position-left[data-v-be1b7b]::after {
+  border-left-color: white;
+  left: calc(100% - 1px);
+}
+.content-wrapper.position-right[data-v-be1b7b] {
+  margin-left: 10px;
+}
+.content-wrapper.position-right[data-v-be1b7b]::before, .content-wrapper.position-right[data-v-be1b7b]::after {
+  transform: translateY(-50%);
+  top: 50%;
+}
+.content-wrapper.position-right[data-v-be1b7b]::before {
+  border-right-color: black;
+  right: 100%;
+}
+.content-wrapper.position-right[data-v-be1b7b]::after {
+  border-right-color: white;
+  right: calc(100% - 1px);
+}

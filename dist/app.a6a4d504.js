@@ -14182,6 +14182,210 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/popover.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "GuLuPopover",
+  data: function data() {
+    return {
+      visible: false
+    };
+  },
+  props: {
+    position: {
+      type: String,
+      default: 'top',
+      validator: function validator(value) {
+        return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
+      }
+    }
+  },
+  methods: {
+    //表驱动编程优化代码
+    positionContent: function positionContent() {
+      var _this$$refs = this.$refs,
+          contentWrapper = _this$$refs.contentWrapper,
+          triggerWrapper = _this$$refs.triggerWrapper;
+      document.body.appendChild(contentWrapper);
+
+      var _triggerWrapper$getBo = triggerWrapper.getBoundingClientRect(),
+          width = _triggerWrapper$getBo.width,
+          height = _triggerWrapper$getBo.height,
+          top = _triggerWrapper$getBo.top,
+          left = _triggerWrapper$getBo.left;
+
+      var _contentWrapper$getBo = contentWrapper.getBoundingClientRect(),
+          height2 = _contentWrapper$getBo.height;
+
+      var positions = {
+        top: {
+          top: top + window.scrollY,
+          left: left + window.scrollX
+        },
+        bottom: {
+          top: top + height + window.scrollY,
+          left: left + window.scrollX
+        },
+        left: {
+          top: top + window.scrollY + (height - height2) / 2,
+          left: left + window.scrollX
+        },
+        right: {
+          top: top + window.scrollY + (height - height2) / 2,
+          left: left + window.scrollX + width
+        }
+      };
+      contentWrapper.style.left = positions[this.position].left + 'px';
+      contentWrapper.style.top = positions[this.position].top + 'px';
+    },
+    // positionContent() {
+    //     document.body.appendChild(this.$refs.contentWrapper)
+    //     let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
+    //     if (this.position === 'top') {
+    //         this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
+    //         this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'
+    //     }
+    //     else if (this.position === 'bottom') {
+    //         this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
+    //         this.$refs.contentWrapper.style.top = top + height + window.scrollY + 'px'
+    //     }
+    //    else if (this.position === 'left') {
+    //         this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
+    //         let {height: height2} = this.$refs.contentWrapper.getBoundingClientRect()
+    //         this.$refs.contentWrapper.style.top = top + window.scrollY + (height - height2) / 2 + 'px'
+    //     }
+    //    else if (this.position === 'right') {
+    //         this.$refs.contentWrapper.style.left = left + window.scrollX + width + 'px'
+    //         let {height: height2} = this.$refs.contentWrapper.getBoundingClientRect()
+    //         this.$refs.contentWrapper.style.top = top + window.scrollY +(height -height2)/2+ 'px'
+    //     }
+    // },
+    onClickDocument: function onClickDocument(e) {
+      if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
+        return;
+      }
+
+      if (this.$refs.contentWrapper && (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))) {
+        return;
+      }
+
+      this.close();
+    },
+    open: function open() {
+      var _this = this;
+
+      this.visible = true;
+      this.$nextTick(function () {
+        _this.positionContent();
+
+        document.addEventListener('click', _this.onClickDocument);
+      });
+    },
+    close: function close() {
+      this.visible = false;
+      document.removeEventListener('click', this.onClickDocument);
+    },
+    onClick: function onClick(event) {
+      if (this.$refs.triggerWrapper.contains(event.target)) {
+        if (this.visible === true) {
+          this.close();
+        } else {
+          this.open();
+        }
+      }
+    }
+  }
+};
+exports.default = _default;
+        var $be1b7b = exports.default || module.exports;
+      
+      if (typeof $be1b7b === 'function') {
+        $be1b7b = $be1b7b.options;
+      }
+    
+        /* template */
+        Object.assign($be1b7b, (function () {
+          var render = function() {
+  var _obj
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { ref: "popover", staticClass: "popover", on: { click: _vm.onClick } },
+    [
+      _vm.visible
+        ? _c(
+            "div",
+            {
+              ref: "contentWrapper",
+              staticClass: "content-wrapper",
+              class:
+                ((_obj = {}), (_obj["position-" + _vm.position] = true), _obj)
+            },
+            [_vm._t("content")],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "span",
+        { ref: "triggerWrapper", staticStyle: { display: "inline-block" } },
+        [_vm._t("default")],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-be1b7b",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$be1b7b', $be1b7b);
+          } else {
+            api.reload('$be1b7b', $be1b7b);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"node_modules/assertion-error/index.js":[function(require,module,exports) {
 /*!
  * assertion-error
@@ -25280,6 +25484,8 @@ var _tabsItem = _interopRequireDefault(require("./tabs-item"));
 
 var _tabsPane = _interopRequireDefault(require("./tabs-pane"));
 
+var _popover = _interopRequireDefault(require("./popover"));
+
 var _chai = _interopRequireDefault(require("chai"));
 
 var _chaiSpies = _interopRequireDefault(require("chai-spies"));
@@ -25322,7 +25528,8 @@ _vue.default.component('g-tabs-item', _tabsItem.default);
 
 _vue.default.component('g-tabs-pane', _tabsPane.default);
 
-_vue.default.config.productionTip = false;
+_vue.default.component('g-popover', _popover.default);
+
 new _vue.default({
   el: '#app',
   data: {
@@ -25467,7 +25674,7 @@ var expect = _chai.default.expect;
   // })
   // vm.$el.click()
 }
-},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./col":"src/col.vue","./row":"src/row.vue","./layout":"src/layout.vue","./header":"src/header.vue","./content":"src/content.vue","./footer":"src/footer.vue","./sider":"src/sider.vue","./toast":"src/toast.vue","./plugin":"src/plugin.js","./tabs":"src/tabs.vue","./tabs-head":"src/tabs-head.vue","./tabs-body":"src/tabs-body.vue","./tabs-item":"src/tabs-item.vue","./tabs-pane":"src/tabs-pane.vue","chai":"node_modules/chai/index.js","chai-spies":"node_modules/chai-spies/chai-spies.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./col":"src/col.vue","./row":"src/row.vue","./layout":"src/layout.vue","./header":"src/header.vue","./content":"src/content.vue","./footer":"src/footer.vue","./sider":"src/sider.vue","./toast":"src/toast.vue","./plugin":"src/plugin.js","./tabs":"src/tabs.vue","./tabs-head":"src/tabs-head.vue","./tabs-body":"src/tabs-body.vue","./tabs-item":"src/tabs-item.vue","./tabs-pane":"src/tabs-pane.vue","./popover":"src/popover.vue","chai":"node_modules/chai/index.js","chai-spies":"node_modules/chai-spies/chai-spies.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -25495,7 +25702,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52681" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54279" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
