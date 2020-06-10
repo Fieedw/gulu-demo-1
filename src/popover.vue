@@ -15,6 +15,22 @@
         data() {
             return {visible: false}
         },
+        props: {
+            position: {
+                type: String,
+                default: 'top',
+                validator(value) {
+                    return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
+                }
+            },
+            trigger:{
+                type:String,
+                default:'click',
+                validator(value) {
+                    return ['click','hover'].indexOf(value) >= 0
+                }
+            }
+        },
         mounted() {
             if (this.trigger === 'click') {
                 this.$refs.popover.addEventListener('click', this.onClick)
@@ -44,22 +60,6 @@
                   return 'click'
               }  else{
                   return 'mouseleave'
-              }
-            }
-        },
-        props: {
-            position: {
-                type: String,
-                default: 'top',
-                validator(value) {
-                    return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
-                }
-            },
-            trigger:{
-              type:String,
-              default:'click',
-              validator(value) {
-                  return ['click','hover'].indexOf(value) >= 0
               }
             }
         },
@@ -188,11 +188,13 @@
             }
 
             &::before {
+                border-bottom:none;
                 border-top-color: black;
                 top: 100%;
             }
 
             &::after {
+                border-bottom: none;
                 border-top-color: white;
                 top: calc(100% - 1px);
             }
@@ -206,11 +208,13 @@
             }
 
             &::before {
+                border-top: none;
                 border-bottom-color: black;
                 bottom: 100%;
             }
 
             &::after {
+                border-top: none;
                 border-bottom-color: white;
                 bottom: calc(100% - 1px);
             }
@@ -226,11 +230,13 @@
             }
 
             &::before {
+                border-right:none ;
                 border-left-color: black;
                 left: 100%;
             }
 
             &::after {
+                border-right:none;
                 border-left-color: white;
                 left: calc(100% - 1px);
             }
@@ -245,11 +251,13 @@
             }
 
             &::before {
+                border-left:none;
                 border-right-color: black;
                 right: 100%;
             }
 
             &::after {
+                border-left:none;
                 border-right-color: white;
                 right: calc(100% - 1px);
             }
