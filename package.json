@@ -4,6 +4,8 @@
   "description": "一个UI框架",
   "main": "index.js",
   "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "start": "./node_modules/.bin/parcel index.html ",
     "dev-test": "parcel watch test/* --no-cache & karma start",
     "test": "parcel build test/* --no-cache --no-minify && karma start --single-run"
@@ -43,6 +45,7 @@
     "sass": "^1.26.5",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^0.13.1"
   }
 }
