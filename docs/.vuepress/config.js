@@ -1,6 +1,9 @@
 module.exports = {
-    title: '轱辘UI2',
+    base: '/gulu-demo-1/',
+    title: '轱辘UI',
     themeConfig: {
+        nav: [
+            {text: '主页', link: '/'}],
         sidebar: [
             {
                 title: '入门',
@@ -9,7 +12,7 @@ module.exports = {
 
             {
                 title: '组件',
-                children: ['/components/button']
+                children: ['/components/layout','/components/button','/components/grid','/components/input','/components/popover','/components/tabs','/components/toast']
             }
         ]
     }

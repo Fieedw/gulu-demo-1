@@ -154,7 +154,7 @@
         <g-input value="王五"></g-input>
         <g-input error="姓名不能少于3个字符" value="王"></g-input>
         <div style="margin-top: 20px">
-            <g-input @change="inputChange" v-model="message" value="王"></g-input>
+            <g-input @input="inputChange" v-model="message" value="王"></g-input>
             <p>{{message}}</p>
         </div>
         <button @click="message+=1">+1</button>

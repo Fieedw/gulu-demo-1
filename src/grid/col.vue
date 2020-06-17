@@ -1,7 +1,7 @@
 <template>
     <div :class="colClass" :style="colStyle" class="col">
         <div style="background: deepskyblue;line-height: 80px;
-        text-align:center;height:80px;
+        text-align:center;height:80px;border:
 margin-top: 10px">
             <slot></slot>
         </div>

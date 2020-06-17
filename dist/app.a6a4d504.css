@@ -2,7 +2,18 @@
   width: 1em;
   height: 1em;
 }
-.g-button[data-v-0bf68d] {
+.box-shadow[data-v-518265] {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+@keyframes spin-data-v-518265 {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+.g-button[data-v-518265] {
   font-size: 14px;
   height: 32px;
   padding: 0 1em;
@@ -14,31 +25,31 @@
   align-items: center;
   vertical-align: middle;
 }
-.g-button[data-v-0bf68d]:hover {
+.g-button[data-v-518265]:hover {
   border-color: #666;
 }
-.g-button[data-v-0bf68d]:active {
+.g-button[data-v-518265]:active {
   background-color: #eee;
 }
-.g-button[data-v-0bf68d]:focus {
+.g-button[data-v-518265]:focus {
   outline: none;
 }
-.g-button > .icon[data-v-0bf68d] {
+.g-button > .icon[data-v-518265] {
   order: 1;
   margin-right: 0.1em;
 }
-.g-button > .content[data-v-0bf68d] {
+.g-button > .content[data-v-518265] {
   order: 2;
 }
-.g-button.icon-right > .icon[data-v-0bf68d] {
+.g-button.icon-right > .icon[data-v-518265] {
   order: 2;
   margin-right: 0;
   margin-left: 0.1em;
 }
-.g-button.icon-right > .content[data-v-0bf68d] {
+.g-button.icon-right > .content[data-v-518265] {
   order: 1;
 }
-@keyframes spin-data-v-0bf68d {
+@keyframes spin-data-v-518265 {
 0% {
     transform: rotate(0deg);
 }
@@ -46,28 +57,28 @@
     transform: rotate(85deg);
 }
 }
-.g-button .loading[data-v-0bf68d] {
-  animation: spin-data-v-0bf68d 1ms linear infinite;
+.g-button .loading[data-v-518265] {
+  animation: spin-data-v-518265 1ms linear infinite;
 }
-.g-button-group[data-v-a67e16] {
+.g-button-group[data-v-26319b] {
   display: inline-flex;
   vertical-align: middle;
 }
-.g-button-group > .g-button[data-v-a67e16] {
+.g-button-group > .g-button[data-v-26319b] {
   border-radius: 0;
 }
-.g-button-group > .g-button[data-v-a67e16]:not(:first-child) {
+.g-button-group > .g-button[data-v-26319b]:not(:first-child) {
   margin-left: -1px;
 }
-.g-button-group > .g-button[data-v-a67e16]:first-child {
+.g-button-group > .g-button[data-v-26319b]:first-child {
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
 }
-.g-button-group > .g-button[data-v-a67e16]:last-child {
+.g-button-group > .g-button[data-v-26319b]:last-child {
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
-.g-button-group > .g-button[data-v-a67e16]:hover {
+.g-button-group > .g-button[data-v-26319b]:hover {
   position: relative;
   z-index: 1;
 }

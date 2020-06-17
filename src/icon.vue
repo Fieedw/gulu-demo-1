@@ -4,6 +4,7 @@
     </svg>
 </template>
 <script>
+    import '../styles/svg'
     export default {
         name:'GuLu-icon',
         props: ['name']
